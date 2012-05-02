@@ -19,6 +19,7 @@ public class ErDetSommerController {
 	
 	@RequestMapping(method=RequestMethod.GET, value="")
 	public @ResponseBody String erDetSommer() {
+		LOG.info("erDetSommer()");
 		int todaysTemperature = yrIntegration.getTodaysTemperature();
 		if (todaysTemperature >= 20) {
 			LOG.info("JA!");
