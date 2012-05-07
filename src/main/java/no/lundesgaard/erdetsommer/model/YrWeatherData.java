@@ -11,6 +11,9 @@ public class YrWeatherData {
 	@XmlElement
 	public YrCreditType credit;
 	
+	@XmlElement
+	public YrForecastType forecast;
+	
 	@Override
 	public String toString() {
 		StringBuilder result = new StringBuilder();
@@ -18,6 +21,8 @@ public class YrWeatherData {
 		result.append(location);
 		result.append(", credit: ");
 		result.append(credit);
+		result.append(", forecast: ");
+		result.append(forecast);
 		result.append(" }");
 		return result.toString();
 	}

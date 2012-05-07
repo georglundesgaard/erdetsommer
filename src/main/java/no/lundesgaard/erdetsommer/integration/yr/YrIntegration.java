@@ -19,7 +19,7 @@ public class YrIntegration {
 	public int getTodaysTemperature() {
 		LOG.info("getTodaysTemperature()");
 		try {
-			YrWeatherData result = restTemplate.getForObject("http://www.yr.no/sted/Norge/Oslo/Oslo/Oslo/varsel.xml"
+			YrWeatherData result = restTemplate.getForObject("http://www.yr.no/sted/Norge/Oslo/Oslo/Oslo/varsel_time_for_time.xml"
 					, YrWeatherData.class);
 			LOG.info("result: " + result);
 		} catch (RestClientException rce) {
