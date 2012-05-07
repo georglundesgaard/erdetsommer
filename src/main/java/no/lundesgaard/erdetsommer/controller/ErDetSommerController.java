@@ -19,13 +19,18 @@ public class ErDetSommerController {
 	
 	@RequestMapping(method=RequestMethod.GET, value="")
 	public @ResponseBody String erDetSommer() {
-		LOG.info("erDetSommer()");
-		int todaysTemperature = yrIntegration.getTodaysTemperature();
-		if (todaysTemperature >= 20) {
-			LOG.info("JA!");
-			return "JA!";
+		//LOG.info("erDetSommer()");
+		StringBuilder response = new StringBuilder("Er det sommer? "); 
+		int highestTemp = yrIntegration.getHighestTemperatureNext24h();
+		if (highestTemp >= 20) {
+			String message = "JA! Høyeste temperatur i Oslo de neste 24 timene er på eller over 20°C: " + highestTemp + "°C";
+			response.append(message);
+		} else {
+			String message = "NEI! Høyeste temperatur i Oslo de neste 24 timene er under 20°C: " + highestTemp + "°C";
+			response.append(message);
 		}
-		LOG.info("NEI!");
-		return "NEI!";
+		response.append("\n\nVærvarsel fra yr.no, levert av Meteorologisk institutt og NRK: http://www.yr.no/sted/Norge/Oslo/Oslo/Oslo/");
+		LOG.info(response);
+		return response.toString();
 	}
 }

@@ -16,17 +16,24 @@ public class YrIntegration {
 	@Autowired 
 	private RestTemplate restTemplate;
 	
-	public int getTodaysTemperature() {
-		LOG.info("getTodaysTemperature()");
+	public int getHighestTemperatureNext24h() {
+//		LOG.info("getTodaysTemperature()");
 		try {
 			YrWeatherData result = restTemplate.getForObject("http://www.yr.no/sted/Norge/Oslo/Oslo/Oslo/varsel_time_for_time.xml"
 					, YrWeatherData.class);
-			LOG.info("result: " + result);
+			//LOG.info("result: " + result);
+			int highestTemp = Integer.MIN_VALUE;
+			for (int i = 0; i < 24 && i < result.forecast.tabular.times.size(); i++) {
+				if (highestTemp < result.forecast.tabular.times.get(i).temperature.value) {
+					highestTemp = result.forecast.tabular.times.get(i).temperature.value;
+				}
+			}
+			return highestTemp;
 		} catch (RestClientException rce) {
 			LOG.error("could not parse weather xml", rce);
 		} catch (Exception e) {
 			LOG.error("unexpected exception", e);
 		}
-		return 0;
+		return Integer.MIN_VALUE;
 	}
 }
